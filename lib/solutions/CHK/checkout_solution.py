@@ -12,6 +12,10 @@ class Product(Enum):
         self.price = price
 
 
+def offer_applicable():
+    ...
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -22,4 +26,9 @@ def checkout(skus: str) -> int:
         except:
             return -1
         total_price += product.price
+
+    # Check if discount is applicable
+    # Apply discount
+
     return total_price 
+
