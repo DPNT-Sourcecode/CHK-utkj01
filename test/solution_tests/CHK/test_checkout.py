@@ -1,8 +1,10 @@
 from solutions.CHK import checkout_solution
 
 
-class TestSum():
+class TestCheckout():
     def test_sum(self):
-        skus = "ABC"
-        assert checkout_solution.checkout(skus) == 115
+        assert checkout_solution.checkout("ABCD") == 115
+        assert checkout_solution.checkout("AAA") == 130
+        assert checkout_solution.checkout("BB") == 45 
+
 

@@ -15,7 +15,13 @@ class Product(Enum):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
+    for sku in list(skus):
+        try:
+            product = Product[sku]
+        except:
+            return -1
     raise NotImplementedError()
+
 
 
 
