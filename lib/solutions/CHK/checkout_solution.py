@@ -15,12 +15,15 @@ class Product(Enum):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
+    total_price = 0
     for sku in list(skus):
         try:
             product = Product[sku]
         except:
             return -1
-    raise NotImplementedError()
+        total_price += product.price
+    return total_price 
+
 
 
 
