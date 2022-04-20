@@ -7,7 +7,7 @@ class Product(Enum):
     C = 20
     D = 15
 
-    def __init__(self, price: int):
+    def __init__(self, price: int) -> None:
         self._value_ = auto()
         self.price = price
 
@@ -23,6 +23,7 @@ def checkout(skus: str) -> int:
             return -1
         total_price += product.price
     return total_price 
+
 
 
 
