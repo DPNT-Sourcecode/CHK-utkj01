@@ -24,14 +24,15 @@ def calculate_discount(basket, offers):
                     free_product = offers[product]["buy_free"]
                     if free_product in basket:
                         free_product_count = basket.get(free_product)
-                        print(free_product_count)
                         if free_product_count:
-                            # discount += free_product.price * free_product_count
-                            discount += free_product.price * discount_count
+                            print(free_product_count, free_product.price)
+                            discount += free_product.price * free_product_count
                 else:
                     price_per_item = offer['price'] / offer['count']
                     discount_count = count // offer['count']
+                    print(product)
                     discount += (product.price - price_per_item) * offer["count"] * discount_count
+    print(discount)
     return discount
 
 
@@ -61,4 +62,5 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
