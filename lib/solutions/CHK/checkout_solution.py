@@ -6,6 +6,7 @@ class Product(Enum):
     B = 30
     C = 20
     D = 15
+    E = 40
 
     def __init__(self, price: int) -> None:
         self._value_ = auto()
@@ -49,3 +50,4 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+

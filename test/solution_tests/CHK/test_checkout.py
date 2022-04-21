@@ -4,7 +4,7 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout():
     def test_sum(self):
-        assert checkout_solution.checkout("ABCD") == 115
+        assert checkout_solution.checkout("ABCDE") == 155
 
     def test_discount(self):
         assert checkout_solution.checkout("AAA") == 130
@@ -20,3 +20,7 @@ class TestCheckout():
 
     def test_invalid_product(self):
         assert checkout_solution.checkout("-") == -1 
+
+    def test_multi_priced(self):
+        assert checkout_solution.checkout("EEB") =  
+
