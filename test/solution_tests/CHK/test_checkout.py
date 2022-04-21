@@ -23,8 +23,10 @@ class TestCheckout():
 
     def test_multipriced_discount(self):
         assert checkout_solution.checkout("EEB") == 80 
-        assert checkout_solution.checkout("EEEEB") == 160 
-        assert checkout_solution.checkout("EEEEBB") == 160 
+        assert checkout_solution.checkout("EEEB") == 120 
+        assert checkout_solution.checkout("EEEE") == 160 
+        # assert checkout_solution.checkout("EEEEBB") == 160 
+
 
 
 
