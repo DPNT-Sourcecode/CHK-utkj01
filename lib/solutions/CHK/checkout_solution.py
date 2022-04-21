@@ -12,8 +12,9 @@ class Product(Enum):
         self.price = price
 
 
-def calculate_discount():
-    ...
+def calculate_discount(basket, offers):
+    total_discount = 0
+    return total_discount
 
 
 # noinspection PyUnusedLocal
@@ -38,10 +39,8 @@ def checkout(skus: str) -> int:
     for product, count in basket.items():
         total_price += product.price * count
 
-    # Check if discount is applicable
-    # if offer_applicable(skus):
-
-        # Apply discount
-
+    discount = calculate_discount(basket, offers)
+    total_price = total_price - discount
     return total_price 
+
 
