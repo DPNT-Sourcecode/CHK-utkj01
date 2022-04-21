@@ -15,6 +15,7 @@ class Product(Enum):
 
 def calculate_discount(basket, offers):
     discount = 0
+    # Discount needs to favor the customer to pick lowest
     for product, count in basket.items():
         if product in offers:
             if count >= offers[product]["count"]:
@@ -62,5 +63,6 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
