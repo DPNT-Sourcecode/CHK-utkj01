@@ -19,7 +19,8 @@ def calculate_discount(basket, offers):
             if count >= offers[product]["count"]:
                 offer = offers[product]
                 price_per_item = offer['price'] / offer['count']
-                discount += (product.price - price_per_item) * offer["count"]
+                discount_count = count // offer['count']
+                discount += (product.price - price_per_item) * offer["count"] * discount_count
     return discount
 
 
@@ -48,6 +49,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
