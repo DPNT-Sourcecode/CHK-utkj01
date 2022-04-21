@@ -12,20 +12,31 @@ class Product(Enum):
         self.price = price
 
 
-def offer_applicable():
+def calculate_discount():
     ...
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
+    offers = {
+        Product.A: {"count": 3, "price": 130},
+        Product.B: {"count": 2, "price": 45},
+    }
+    basket = {}
     total_price = 0
     for sku in list(skus):
         try:
             product = Product[sku]
         except:
             return -1
-        total_price += product.price
+        if product in basket:
+            basket[product] += 1
+        else:
+            basket[product] = 1
+
+    for product, count in basket.items():
+        total_price += product.price * count
 
     # Check if discount is applicable
     # if offer_applicable(skus):
@@ -33,3 +44,4 @@ def checkout(skus: str) -> int:
         # Apply discount
 
     return total_price 
+
