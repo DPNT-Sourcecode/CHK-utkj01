@@ -14,7 +14,7 @@ class Product(Enum):
         self.price = price
 
 
-def calculate_getfree_discount(basket, offers) -> int:
+def calculate_getfree_discount(basket: Dict[str], offers: List[dict]) -> int:
     discount = 0
     for offer in offers:
         product = offer['product']
@@ -23,11 +23,20 @@ def calculate_getfree_discount(basket, offers) -> int:
             if free_product in basket:
                 while basket[product] >= offer["count"] and basket[free_product] > 0:
                     discount += free_product.price
-    return discount 
+                    basket[free_product] -= 1
+                    basket[product] -= offer["count"]
+    return discount, basket 
+
+
+def calculate_multiprice_discount(basket: Dict[str], offers: List[dict]) -> int:
+    discount = 0
+    return discount, basket
 
 
 def calculate_discount(basket: Dict[str], offers: List[dict]) -> int:
     discount = 0
+    getfree_discount, basket = calculate_getfree_discount(basket, offers) 
+    multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
     # Discount needs to favor the customer to pick lowest
     # So change this to iterate the offers first
     for product, count in basket.items():
@@ -90,6 +99,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
