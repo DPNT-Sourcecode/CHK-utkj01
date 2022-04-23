@@ -9,6 +9,26 @@ class Product(Enum):
     D = 15
     E = 40
     F = 10
+    G = 20
+    H = 10
+    I = 35
+    J = 60
+    K = 80
+    L = 90
+    M = 15
+    N = 40
+    O = 10
+    P = 50
+    Q = 30
+    R = 50
+    S = 30
+    T = 20
+    U = 40
+    V = 50
+    W = 20
+    X = 90
+    Y = 10
+    Z = 50
 
     def __init__(self, price: int) -> None:
         self._value_ = auto()
@@ -23,13 +43,11 @@ def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> in
             free_product = offer["get_free"]
             if free_product in basket:
                 while basket[product] >= offer["count"] and basket[free_product] > 0:
-                    print(basket)
                     discount += free_product.price
                     # TODO: This is quite hacky. To be refactored later.
                     if free_product is not product:
                         basket[free_product] -= 1
                     basket[product] -= offer["count"]
-                    print(basket)
     return discount, basket 
 
 
@@ -90,8 +108,3 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
-
-
-
-
-
