@@ -33,5 +33,3 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
-
-

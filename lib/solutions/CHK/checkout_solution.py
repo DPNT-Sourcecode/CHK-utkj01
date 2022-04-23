@@ -14,7 +14,7 @@ class Product(Enum):
         self.price = price
 
 
-def calculate_getfree_discount(basket: Dict[str], offers: List[dict]) -> int:
+def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> int:
     discount = 0
     for offer in offers:
         product = offer['product']
@@ -28,7 +28,7 @@ def calculate_getfree_discount(basket: Dict[str], offers: List[dict]) -> int:
     return discount, basket 
 
 
-def calculate_multiprice_discount(basket: Dict[str], offers: List[dict]) -> int:
+def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) -> int:
     discount = 0
     for offer in offers:
         product = offer['product']
@@ -39,9 +39,11 @@ def calculate_multiprice_discount(basket: Dict[str], offers: List[dict]) -> int:
     return discount, basket
 
 
-def calculate_discount(basket: Dict[str], offers: List[dict]) -> int:
+def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
+    print(getfree_discount)
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
+    print(multiprice_discount)
     return getfree_discount + multiprice_discount 
 
 
@@ -84,11 +86,3 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
-
-
-
-
-
-
-
-
