@@ -10,7 +10,7 @@ class TestCheckout():
         assert checkout_solution.checkout("AAA") == 130
         assert checkout_solution.checkout("AAAA") == 180
         assert checkout_solution.checkout("AAAAA") == 200
-        assert checkout_solution.checkout("AAAAAA") == 260
+        assert checkout_solution.checkout("AAAAAA") == 250
         assert checkout_solution.checkout("BB") == 45 
         assert checkout_solution.checkout("BBB") == 75 
         assert checkout_solution.checkout("BBBB") == 90 
@@ -33,3 +33,4 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+

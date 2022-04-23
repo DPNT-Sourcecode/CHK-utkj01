@@ -41,9 +41,7 @@ def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) ->
 
 def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
-    print(getfree_discount)
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
-    print(multiprice_discount)
     return getfree_discount + multiprice_discount 
 
 
@@ -86,3 +84,4 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
