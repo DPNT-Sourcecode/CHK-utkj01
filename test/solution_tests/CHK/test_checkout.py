@@ -5,7 +5,7 @@ from solutions.CHK import checkout_solution
 class TestCheckout():
     def test_item_price(self):
         assert checkout_solution.checkout("A") == 50
-        assert checkout_solution.checkout("A") == 50
+        assert checkout_solution.checkout("A") == 30
         assert checkout_solution.checkout("B") == 30
         assert checkout_solution.checkout("C") == 20
         assert checkout_solution.checkout("D") == 15
@@ -15,7 +15,7 @@ class TestCheckout():
         assert checkout_solution.checkout("H") == 10
         assert checkout_solution.checkout("I") == 35
         assert checkout_solution.checkout("J") == 60
-        assert checkout_solution.checkout("K") == 80
+        assert checkout_solution.checkout("K") == 70
         assert checkout_solution.checkout("L") == 90
         assert checkout_solution.checkout("M") == 15
         assert checkout_solution.checkout("N") == 40
@@ -23,14 +23,14 @@ class TestCheckout():
         assert checkout_solution.checkout("P") == 50
         assert checkout_solution.checkout("Q") == 30
         assert checkout_solution.checkout("R") == 50
-        assert checkout_solution.checkout("S") == 30
+        assert checkout_solution.checkout("S") == 20
         assert checkout_solution.checkout("T") == 20
         assert checkout_solution.checkout("U") == 40
         assert checkout_solution.checkout("V") == 50
         assert checkout_solution.checkout("W") == 20
-        assert checkout_solution.checkout("X") == 90
-        assert checkout_solution.checkout("Y") == 10
-        assert checkout_solution.checkout("Z") == 50
+        assert checkout_solution.checkout("X") == 17
+        assert checkout_solution.checkout("Y") == 20
+        assert checkout_solution.checkout("Z") == 21 
 
     def test_basket_empty(self):
         assert checkout_solution.checkout("") == 0
@@ -75,6 +75,7 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+
 
 
 
