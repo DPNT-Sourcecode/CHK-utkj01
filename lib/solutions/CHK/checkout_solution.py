@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from typing import Dict, List
 
 
 class Product(Enum):
@@ -13,7 +14,26 @@ class Product(Enum):
         self.price = price
 
 
-def calculate_discount(basket, offers):
+def calculate_getfree_discount(basket, offers) -> int:
+    discount = 0
+    for offer in offers:
+        product = offer['product']:
+    for product, count in basket.items():
+        if product in offers:
+            if count >= offers[product]["count"]:
+                offer = offers[product]
+                if 'get_free' in offer:
+                    discount_count = count // offer['count']
+                    free_product = offers[product]["get_free"]
+                    if free_product in basket:
+                        free_product_count = basket.get(free_product)
+                        if free_product_count:
+                            print(free_product_count, free_product.price)
+                            discount += free_product.price * free_product_count
+    return discount 
+
+
+def calculate_discount(basket: Dict[str], offers: List[dict]) -> int:
     discount = 0
     # Discount needs to favor the customer to pick lowest
     # So change this to iterate the offers first
@@ -77,6 +97,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
