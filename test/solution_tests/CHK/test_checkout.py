@@ -5,7 +5,6 @@ from solutions.CHK import checkout_solution
 class TestCheckout():
     def test_item_price(self):
         assert checkout_solution.checkout("A") == 50
-        assert checkout_solution.checkout("A") == 30
         assert checkout_solution.checkout("B") == 30
         assert checkout_solution.checkout("C") == 20
         assert checkout_solution.checkout("D") == 15
@@ -43,9 +42,11 @@ class TestCheckout():
         assert checkout_solution.checkout("AAAA") == 180
         assert checkout_solution.checkout("AAAAA") == 200
         assert checkout_solution.checkout("AAAAAA") == 250
+
         assert checkout_solution.checkout("BB") == 45 
         assert checkout_solution.checkout("BBB") == 75 
         assert checkout_solution.checkout("BBBB") == 90 
+
         assert checkout_solution.checkout("AAABB") == 175
         assert checkout_solution.checkout("HHHHH") == 45
         assert checkout_solution.checkout("HHHHHH") == 55
@@ -75,10 +76,3 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
-
-
-
-
-
-
-
