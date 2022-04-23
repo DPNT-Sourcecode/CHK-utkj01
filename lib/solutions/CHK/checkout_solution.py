@@ -30,34 +30,19 @@ def calculate_getfree_discount(basket: Dict[str], offers: List[dict]) -> int:
 
 def calculate_multiprice_discount(basket: Dict[str], offers: List[dict]) -> int:
     discount = 0
+    for offer in offers:
+        product = offer['product']
+        if 'price' in offer and product in basket:
+            while basket[product] >= offer["count"]:
+                discount += product.price * offer["count"] - offer['price']
+                basket[product] -= offer["count"]
     return discount, basket
 
 
 def calculate_discount(basket: Dict[str], offers: List[dict]) -> int:
-    discount = 0
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
-    # Discount needs to favor the customer to pick lowest
-    # So change this to iterate the offers first
-    for product, count in basket.items():
-        if product in offers:
-            if count >= offers[product]["count"]:
-                offer = offers[product]
-                if 'get_free' in offer:
-                    discount_count = count // offer['count']
-                    free_product = offers[product]["get_free"]
-                    if free_product in basket:
-                        free_product_count = basket.get(free_product)
-                        if free_product_count:
-                            print(free_product_count, free_product.price)
-                            discount += free_product.price * free_product_count
-                else:
-                    price_per_item = offer['price'] / offer['count']
-                    discount_count = count // offer['count']
-                    print(product)
-                    discount += (product.price - price_per_item) * offer["count"] * discount_count
-    print(discount)
-    return discount
+    return getfree_discount + multiprice_discount 
 
 
 def get_offers() -> list:
@@ -99,6 +84,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
