@@ -65,6 +65,14 @@ def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) ->
 
 
 def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> int: 
+    discount = 0
+    for offer in offers:
+        product_list = offer['product']
+        if isinstance(product_list, list):
+            for product in product_list:  # perhaps need to sort this to get priciest first to favor customer
+                if product in basket:
+                    discount += product.price
+    return discount, basket
 
 
 def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
@@ -128,6 +136,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
