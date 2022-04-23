@@ -42,6 +42,7 @@ def calculate_discount(basket, offers):
 def checkout(skus: str) -> int:
     offers = {
         Product.A: {"count": 3, "price": 130},
+        Product.A: {"count": 5, "price": 200},
         Product.B: {"count": 2, "price": 45},
         Product.E: {"count": 2, "get_free": Product.B}
     }
@@ -63,4 +64,5 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
