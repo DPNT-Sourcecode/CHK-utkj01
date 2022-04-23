@@ -4,7 +4,7 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout():
     def test_sum(self):
-        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 155
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 965
 
     def test_basket_empty(self):
         assert checkout_solution.checkout("") == 0
@@ -42,10 +42,11 @@ class TestCheckout():
 
         assert checkout_solution.checkout("NNNM") == 120 
         assert checkout_solution.checkout("UUUU") == 120 
-        assert checkout_solution.checkout("RRRQ") == 40
+        assert checkout_solution.checkout("RRRQ") == 150 
 
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+
 
 
