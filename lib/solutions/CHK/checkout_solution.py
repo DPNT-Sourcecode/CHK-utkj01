@@ -91,8 +91,8 @@ def get_offers() -> list:
         if 'get_free' in offer:
             discount_per_item = offer['get_free'].price
         elif isinstance(offer['product'], list):
-            # problem is to calculate the discount per item
-            ...
+            priciest_product = max([product.price for product in offer['product']])
+            discount_per_item = priciest_product - offer['price'] / offer['count']
         else:
             discount_per_item = offer['product'].price - offer['price'] / offer['count']
         offer.update({"discount_per_item": discount_per_item})
@@ -122,6 +122,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
