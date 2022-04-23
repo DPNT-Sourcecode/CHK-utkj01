@@ -65,13 +65,13 @@ def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) ->
 
 
 def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> int: 
-    total = 0
-    applied = 0
-    discount = 0
     for offer in offers:
+        discount = 0
+        total = 0
+        applied = 0
         product_list = offer['product']
         if isinstance(product_list, list):
-            for product in product_list:  # perhaps need to sort this to get priciest first to favor customer
+            for product in product_list:  # TODO: perhaps need to sort this to get priciest first to favor customer
                 if product in basket:
                     total += product.price
                     applied += 1
@@ -82,6 +82,7 @@ def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> i
 
 
 def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
+    # TODO: Refactor this as the order seems to matter 
     groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
@@ -142,3 +143,4 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
