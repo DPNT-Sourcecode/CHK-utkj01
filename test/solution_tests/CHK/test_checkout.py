@@ -42,16 +42,14 @@ class TestCheckout():
         assert checkout_solution.checkout("AAAA") == 180
         assert checkout_solution.checkout("AAAAA") == 200
         assert checkout_solution.checkout("AAAAAA") == 250
-
         assert checkout_solution.checkout("BB") == 45 
         assert checkout_solution.checkout("BBB") == 75 
         assert checkout_solution.checkout("BBBB") == 90 
-
         assert checkout_solution.checkout("AAABB") == 175
         assert checkout_solution.checkout("HHHHH") == 45
         assert checkout_solution.checkout("HHHHHH") == 55
         assert checkout_solution.checkout("HHHHHHHHHH") == 80
-        assert checkout_solution.checkout("KK") == 150
+        assert checkout_solution.checkout("KK") == 120
         assert checkout_solution.checkout("KKKK") == 300
         assert checkout_solution.checkout("PPPPP") == 200
         assert checkout_solution.checkout("QQQ") == 80
@@ -76,3 +74,7 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+
+    def test_group_discount(self):
+        assert checkout_solution.checkout("STX") == 45
+
