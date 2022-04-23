@@ -39,15 +39,16 @@ def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> in
     discount = 0
     for offer in offers:
         product = offer['product']
-        if 'get_free' in offer and product in basket:
-            free_product = offer["get_free"]
-            if free_product in basket:
-                while basket[product] >= offer["count"] and basket[free_product] > 0:
-                    discount += free_product.price
-                    # TODO: This is quite hacky. To be refactored later.
-                    if free_product is not product:
-                        basket[free_product] -= 1
-                    basket[product] -= offer["count"]
+        if isinstance(product, Product):
+            if 'get_free' in offer and product in basket:
+                free_product = offer["get_free"]
+                if free_product in basket:
+                    while basket[product] >= offer["count"] and basket[free_product] > 0:
+                        discount += free_product.price
+                        # TODO: This is quite hacky. To be refactored later.
+                        if free_product is not product:
+                            basket[free_product] -= 1
+                        basket[product] -= offer["count"]
     return discount, basket 
 
 
@@ -55,17 +56,22 @@ def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) ->
     discount = 0
     for offer in offers:
         product = offer['product']
-        if 'price' in offer and product in basket:
-            while basket[product] >= offer["count"]:
-                discount += product.price * offer["count"] - offer['price']
-                basket[product] -= offer["count"]
+        if isinstance(product, Product):
+            if 'price' in offer and product in basket:
+                while basket[product] >= offer["count"]:
+                    discount += product.price * offer["count"] - offer['price']
+                    basket[product] -= offer["count"]
     return discount, basket
 
 
+def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> int: 
+
+
 def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
+    groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
-    return getfree_discount + multiprice_discount 
+    return groupbuy_discount + getfree_discount + multiprice_discount 
 
 
 def get_offers() -> list:
@@ -122,6 +128,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
