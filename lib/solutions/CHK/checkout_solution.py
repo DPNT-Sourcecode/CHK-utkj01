@@ -47,7 +47,11 @@ def get_offers() -> list:
     ]
     for offer in offers:
         if 'price' in offer:
-            discount_per_item = offer['price'] / offer['count']
+            discount_per_item = offer['product'].price - offer['price'] / offer['count']
+        else:
+            discount_per_item = offer['get_free'].price
+        offer.update({"discount_per_item": discount_per_item})
+    offers.sort(reverse=True, key=lambda offer: offer['discount_per_item'])
     return offers
 
 
@@ -73,6 +77,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
