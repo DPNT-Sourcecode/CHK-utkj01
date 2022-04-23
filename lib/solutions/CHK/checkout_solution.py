@@ -85,6 +85,7 @@ def get_offers() -> list:
         {"product": Product.U, "count": 4, "get_free": Product.U},
         {"product": Product.V, "count": 2, "price": 90},
         {"product": Product.V, "count": 3, "price": 130},
+        {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], "count": 3, "price": 130},
     ]
     for offer in offers:
         if 'price' in offer:
@@ -118,4 +119,5 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
