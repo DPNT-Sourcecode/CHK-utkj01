@@ -20,9 +20,9 @@ def calculate_discount(basket, offers):
         if product in offers:
             if count >= offers[product]["count"]:
                 offer = offers[product]
-                if 'buy_free' in offer:
+                if 'get_free' in offer:
                     discount_count = count // offer['count']
-                    free_product = offers[product]["buy_free"]
+                    free_product = offers[product]["get_free"]
                     if free_product in basket:
                         free_product_count = basket.get(free_product)
                         if free_product_count:
@@ -43,7 +43,7 @@ def checkout(skus: str) -> int:
     offers = {
         Product.A: {"count": 3, "price": 130},
         Product.B: {"count": 2, "price": 45},
-        Product.E: {"count": 2, "buy_free": Product.B}
+        Product.E: {"count": 2, "get_free": Product.B}
     }
     basket = {}
     total_price = 0
@@ -63,3 +63,4 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+

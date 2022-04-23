@@ -6,7 +6,7 @@ class TestCheckout():
     def test_sum(self):
         assert checkout_solution.checkout("ABCDE") == 155
 
-    def test_fixedprice_discount(self):
+    def test_multiprice_discount(self):
         assert checkout_solution.checkout("AAA") == 130
         assert checkout_solution.checkout("AAAA") == 180
         assert checkout_solution.checkout("AAAAA") == 200
@@ -22,10 +22,16 @@ class TestCheckout():
     def test_invalid_product(self):
         assert checkout_solution.checkout("-") == -1 
 
-    def test_multipriced_discount(self):
+    def test_getfree_discount(self):
         assert checkout_solution.checkout("EEB") == 80 
+        assert checkout_solution.checkout("EEBB") == 110 
         assert checkout_solution.checkout("EEEB") == 120 
         assert checkout_solution.checkout("EEEE") == 160 
         assert checkout_solution.checkout("EEEEB") == 160 
         assert checkout_solution.checkout("EEEEBB") == 160
+
+    def test_stacked_discount(self):
+        assert checkout_solution.checkout("AAABBBEE") == 255 
+        assert checkout_solution.checkout("AAABBEE") == 240
+
 
