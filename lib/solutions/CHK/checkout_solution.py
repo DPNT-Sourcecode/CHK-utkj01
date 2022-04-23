@@ -25,7 +25,9 @@ def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> in
                 while basket[product] >= offer["count"] and basket[free_product] > 0:
                     print(basket)
                     discount += free_product.price
-                    basket[free_product] -= 1
+                    # TODO: This is quite hacky. To be refactored later.
+                    if free_product is not product:
+                        basket[free_product] -= 1
                     basket[product] -= offer["count"]
                     print(basket)
     return discount, basket 
@@ -88,6 +90,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
