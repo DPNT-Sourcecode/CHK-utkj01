@@ -17,19 +17,12 @@ class Product(Enum):
 def calculate_getfree_discount(basket, offers) -> int:
     discount = 0
     for offer in offers:
-        product = offer['product']:
-    for product, count in basket.items():
-        if product in offers:
-            if count >= offers[product]["count"]:
-                offer = offers[product]
-                if 'get_free' in offer:
-                    discount_count = count // offer['count']
-                    free_product = offers[product]["get_free"]
-                    if free_product in basket:
-                        free_product_count = basket.get(free_product)
-                        if free_product_count:
-                            print(free_product_count, free_product.price)
-                            discount += free_product.price * free_product_count
+        product = offer['product']
+        if 'get_free' in offer and product in basket:
+            free_product = offer["get_free"]
+            if free_product in basket:
+                while basket[product] >= offer["count"] and basket[free_product] > 0:
+                    discount += free_product.price
     return discount 
 
 
@@ -97,6 +90,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
