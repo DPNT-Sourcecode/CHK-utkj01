@@ -16,6 +16,7 @@ class Product(Enum):
 def calculate_discount(basket, offers):
     discount = 0
     # Discount needs to favor the customer to pick lowest
+    # So change this to iterate the offers first
     for product, count in basket.items():
         if product in offers:
             if count >= offers[product]["count"]:
@@ -37,15 +38,22 @@ def calculate_discount(basket, offers):
     return discount
 
 
+def get_offers() -> list:
+    offers = [
+        {"product": Product.A, "count": 3, "price": 130},
+        {"product": Product.A, "count": 5, "price": 200},
+        {"product": Product.B, "count": 2, "price": 45},
+        {"product": Product.E, "count": 2, "get_free": Product.B},
+    ]
+    for offer in offers:
+        if 'price' in offer:
+            discount_per_item = offer['price'] / offer['count']
+    return offers
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
-    offers = {
-        Product.A: {"count": 3, "price": 130},
-        Product.A: {"count": 5, "price": 200},
-        Product.B: {"count": 2, "price": 45},
-        Product.E: {"count": 2, "get_free": Product.B}
-    }
     basket = {}
     total_price = 0
     for sku in list(skus):
@@ -61,8 +69,10 @@ def checkout(skus: str) -> int:
     for product, count in basket.items():
         total_price += product.price * count
 
+    offers = get_offers()
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
