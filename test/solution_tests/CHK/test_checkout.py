@@ -9,6 +9,7 @@ class TestCheckout():
     def test_fixedprice_discount(self):
         assert checkout_solution.checkout("AAA") == 130
         assert checkout_solution.checkout("AAAA") == 180
+        assert checkout_solution.checkout("AAAAA") == 200
         assert checkout_solution.checkout("AAAAAA") == 260
         assert checkout_solution.checkout("BB") == 45 
         assert checkout_solution.checkout("BBB") == 75 
@@ -26,4 +27,5 @@ class TestCheckout():
         assert checkout_solution.checkout("EEEB") == 120 
         assert checkout_solution.checkout("EEEE") == 160 
         assert checkout_solution.checkout("EEEEB") == 160 
-        assert checkout_solution.checkout("EEEEBB") == 160 + 60 
+        assert checkout_solution.checkout("EEEEBB") == 160
+
