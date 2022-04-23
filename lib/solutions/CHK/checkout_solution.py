@@ -88,10 +88,13 @@ def get_offers() -> list:
         {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], "count": 3, "price": 130},
     ]
     for offer in offers:
-        if 'price' in offer:
-            discount_per_item = offer['product'].price - offer['price'] / offer['count']
-        else:
+        if 'get_free' in offer:
             discount_per_item = offer['get_free'].price
+        elif isinstance(offer['product'], list):
+            # problem is to calculate the discount per item
+            ...
+        else:
+            discount_per_item = offer['product'].price - offer['price'] / offer['count']
         offer.update({"discount_per_item": discount_per_item})
     offers.sort(reverse=True, key=lambda offer: offer['discount_per_item'])
     return offers
@@ -119,5 +122,6 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
