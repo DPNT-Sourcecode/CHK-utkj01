@@ -4,41 +4,39 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout():
     def test_item_price(self):
-        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 965
         assert checkout_solution.checkout("A") == 50
-    A = 50
-    B = 30
-    C = 20
-    D = 15
-    E = 40
-    F = 10
-    G = 20
-    H = 10
-    I = 35
-    J = 60
-    K = 80
-    L = 90
-    M = 15
-    N = 40
-    O = 10
-    P = 50
-    Q = 30
-    R = 50
-    S = 30
-    T = 20
-    U = 40
-    V = 50
-    W = 20
-    X = 90
-    Y = 10
-    Z = 50
+        assert checkout_solution.checkout("A") == 50
+        assert checkout_solution.checkout("B") == 30
+        assert checkout_solution.checkout("C") == 20
+        assert checkout_solution.checkout("D") == 15
+        assert checkout_solution.checkout("E") == 40
+        assert checkout_solution.checkout("F") == 10
+        assert checkout_solution.checkout("G") == 20
+        assert checkout_solution.checkout("H") == 10
+        assert checkout_solution.checkout("I") == 35
+        assert checkout_solution.checkout("J") == 60
+        assert checkout_solution.checkout("K") == 80
+        assert checkout_solution.checkout("L") == 90
+        assert checkout_solution.checkout("M") == 15
+        assert checkout_solution.checkout("N") == 40
+        assert checkout_solution.checkout("O") == 10
+        assert checkout_solution.checkout("P") == 50
+        assert checkout_solution.checkout("Q") == 30
+        assert checkout_solution.checkout("R") == 50
+        assert checkout_solution.checkout("S") == 30
+        assert checkout_solution.checkout("T") == 20
+        assert checkout_solution.checkout("U") == 40
+        assert checkout_solution.checkout("V") == 50
+        assert checkout_solution.checkout("W") == 20
+        assert checkout_solution.checkout("X") == 90
+        assert checkout_solution.checkout("Y") == 10
+        assert checkout_solution.checkout("Z") == 50
 
     def test_basket_empty(self):
         assert checkout_solution.checkout("") == 0
 
     def test_invalid_product(self):
         assert checkout_solution.checkout("-") == -1 
-
 
     def test_multiprice_discount(self):
         assert checkout_solution.checkout("AAA") == 130
@@ -65,6 +63,8 @@ class TestCheckout():
         assert checkout_solution.checkout("EEEEB") == 160 
         assert checkout_solution.checkout("EEEEBB") == 160
         assert checkout_solution.checkout("FFF") == 20
+        assert checkout_solution.checkout("FFFF") == 30
+        assert checkout_solution.checkout("FFFFF") == 40
         assert checkout_solution.checkout("FFFFFF") == 40
 
         assert checkout_solution.checkout("NNNM") == 120 
@@ -74,6 +74,7 @@ class TestCheckout():
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+
 
 
 
