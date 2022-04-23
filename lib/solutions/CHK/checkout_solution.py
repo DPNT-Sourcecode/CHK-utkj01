@@ -8,6 +8,7 @@ class Product(Enum):
     C = 20
     D = 15
     E = 40
+    F = 10
 
     def __init__(self, price: int) -> None:
         self._value_ = auto()
@@ -51,6 +52,7 @@ def get_offers() -> list:
         {"product": Product.A, "count": 5, "price": 200},
         {"product": Product.B, "count": 2, "price": 45},
         {"product": Product.E, "count": 2, "get_free": Product.B},
+        # {"product": Product.F, "count": 2, "get_free": Product.F},
     ]
     for offer in offers:
         if 'price' in offer:
@@ -84,4 +86,5 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
