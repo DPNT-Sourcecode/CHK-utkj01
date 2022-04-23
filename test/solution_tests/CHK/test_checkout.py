@@ -4,7 +4,14 @@ from solutions.CHK import checkout_solution
 
 class TestCheckout():
     def test_sum(self):
-        assert checkout_solution.checkout("ABCDE") == 155
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 155
+
+    def test_basket_empty(self):
+        assert checkout_solution.checkout("") == 0
+
+    def test_invalid_product(self):
+        assert checkout_solution.checkout("-") == -1 
+
 
     def test_multiprice_discount(self):
         assert checkout_solution.checkout("AAA") == 130
@@ -15,12 +22,9 @@ class TestCheckout():
         assert checkout_solution.checkout("BBB") == 75 
         assert checkout_solution.checkout("BBBB") == 90 
         assert checkout_solution.checkout("AAABB") == 175
-
-    def test_basket_empty(self):
-        assert checkout_solution.checkout("") == 0
-
-    def test_invalid_product(self):
-        assert checkout_solution.checkout("-") == -1 
+        assert checkout_solution.checkout("HHHHH") == 45
+        assert checkout_solution.checkout("HHHHHHHHHH") == 80
+        assert checkout_solution.checkout("KK") == 150
 
     def test_getfree_discount(self):
         assert checkout_solution.checkout("EEB") == 80 
@@ -31,7 +35,9 @@ class TestCheckout():
         assert checkout_solution.checkout("EEEEBB") == 160
         assert checkout_solution.checkout("FFF") == 20
         assert checkout_solution.checkout("FFFFFF") == 40
+        assert checkout_solution.checkout("NNNM") == 40
 
     def test_stacked_discount(self):
         assert checkout_solution.checkout("AAABBBEE") == 255 
         assert checkout_solution.checkout("AAABBEE") == 240
+
