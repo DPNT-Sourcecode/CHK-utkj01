@@ -107,7 +107,7 @@ class Basket:
             self.products[product] += 1
         else:
             self.products[product] = 1
-        
+        self.total_price += product.price 
 
     def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
         for sku in list(skus):
@@ -120,25 +120,16 @@ class Basket:
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
-    basket = {}
-    total_price = 0
-    for sku in list(skus):
-        try:
-            product = Product[sku]
-        except:
-            return -1
-        if product in basket:
-            basket[product] += 1
-        else:
-            basket[product] = 1
-
-    for product, count in basket.items():
-        total_price += product.price * count
-
+    try:
+        basket = Basket(skus) 
+    except ProductNotFoundError:
+        return -1
     offers = get_offers()
+    return basket.checkout(offers)
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
