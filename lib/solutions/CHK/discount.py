@@ -12,21 +12,20 @@ class Discount(ABC):
     def apply(self, products: Dict[Product, int]) -> int: ...
 
 
-def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> int:
-    discount = 0
-    for offer in offers:
-        product = offer['product']
-        if isinstance(product, Product):
-            if 'get_free' in offer and product in basket:
-                free_product = offer["get_free"]
-                if free_product in basket:
-                    while basket[product] >= offer["count"] and basket[free_product] > 0:
-                        discount += free_product.price
-                        # TODO: This is quite hacky. To be refactored later.
-                        if free_product is not product:
-                            basket[free_product] -= 1
-                        basket[product] -= offer["count"]
-    return discount, basket 
+class GetFree(Discount):
+    def __init__(self, offer: List[dict]) -> None:
+        self.offer = offer
+
+    def apply(self, products: Dict[Product, int]) -> int:
+        discount = 0
+        product = self.offer['product']
+        free_product = self.offer["get_free"]
+        if product in products and free_product in products:
+            while products[product] >= self.offer["count"] and products[free_product] > 0:
+                discount += free_product.price
+                if free_product is not product:
+                    products[free_product] -= 1
+                products[product] -= self.offer["count"]
 
 
 def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) -> int:
@@ -58,4 +57,5 @@ def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> i
             if applied >= offer['count']:
                 discount += total - offer['price'] * applied / offer['count']
     return discount, basket
+
 
