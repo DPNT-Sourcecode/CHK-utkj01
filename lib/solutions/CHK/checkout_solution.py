@@ -1,5 +1,6 @@
 from typing import Dict, List, Generator
 from .product import Product
+from .errors import ProductNotFoundError
 
 
 def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> int:
@@ -97,16 +98,23 @@ class Basket:
     def __init__(self, skus: str) -> None:
         self.skus: str = skus
         self.products: Dict[Product, int] = {}
+        self.total_price: int = 0
+        for product in self._parse_skus(self.skus):
+            self.add_item(product)
     
     def add_item(self, product: Product) -> None:
-        ...
+        if product in self.products:
+            self.products[product] += 1
+        else:
+            self.products[product] = 1
+        
 
-    def _parse_skus(self, skus: str) -> Generator[Product, None None]:
+    def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
         for sku in list(skus):
             try:
                 yield Product[sku]
             except:
-                ...
+                raise ProductNotFoundError(sku)
 
 
 # noinspection PyUnusedLocal
@@ -131,6 +139,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
