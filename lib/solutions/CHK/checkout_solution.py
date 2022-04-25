@@ -55,7 +55,6 @@ def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> i
 
 
 def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
-    # TODO: Refactor this as the order seems to matter 
     groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
     getfree_discount, basket = calculate_getfree_discount(basket, offers) 
     multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
@@ -109,6 +108,15 @@ class Basket:
             self.products[product] = 1
         self.total_price += product.price 
 
+    def checkout(self, offers: List[dict]) -> int:
+        return self.total_price - self._calculate_discount(offers)
+
+    def _calculate_discount(self, offers: List[dict]) -> int:
+        groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
+        getfree_discount, basket = calculate_getfree_discount(basket, offers) 
+        multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
+        return groupbuy_discount + getfree_discount + multiprice_discount 
+
     def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
         for sku in list(skus):
             try:
@@ -126,9 +134,7 @@ def checkout(skus: str) -> int:
         return -1
     offers = get_offers()
     return basket.checkout(offers)
-    discount = calculate_discount(basket, offers)
-    total_price = total_price - discount
-    return total_price 
+
 
 
 
