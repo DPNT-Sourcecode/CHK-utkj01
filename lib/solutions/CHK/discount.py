@@ -60,7 +60,8 @@ class GroupPrice(Discount):
                     applied += 1
                     products[product] -= 1
         if applied >= self.offer['count']:
-            print(applied, self.offer['count'], applied // self.offer['count'])
+            print(f"{total} - {self.offer['price']} * {applied} // {self.offer['count']}", products)
             discount += total - self.offer['price'] * applied // self.offer['count']
         return discount 
+
 
