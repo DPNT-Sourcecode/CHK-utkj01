@@ -1,38 +1,5 @@
-from enum import Enum, auto
 from typing import Dict, List
-
-
-class Product(Enum):
-    A = 50
-    B = 30
-    C = 20
-    D = 15
-    E = 40
-    F = 10
-    G = 20
-    H = 10
-    I = 35
-    J = 60
-    K = 70
-    L = 90
-    M = 15
-    N = 40
-    O = 10
-    P = 50
-    Q = 30
-    R = 50
-    S = 20
-    T = 20
-    U = 40
-    V = 50
-    W = 20
-    X = 17
-    Y = 20
-    Z = 21
-
-    def __init__(self, price: int) -> None:
-        self._value_ = auto()
-        self.price = price
+from .product import Product
 
 
 def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> int:
@@ -111,7 +78,7 @@ def get_offers() -> list:
         {"product": Product.U, "count": 4, "get_free": Product.U},
         {"product": Product.V, "count": 2, "price": 90},
         {"product": Product.V, "count": 3, "price": 130},
-        {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], "count": 3, "price": 130},
+        {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], "count": 3, "price": 45},
     ]
     for offer in offers:
         if 'get_free' in offer:
@@ -148,5 +115,6 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
