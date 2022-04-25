@@ -12,6 +12,3 @@ def checkout(skus: str) -> int:
         return -1
     offers = get_offers()
     return basket.checkout(offers)
-
-
-

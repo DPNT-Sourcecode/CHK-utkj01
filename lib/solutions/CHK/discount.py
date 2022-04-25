@@ -49,21 +49,18 @@ class GroupPrice(Discount):
         self.offer = offer
 
     def apply(self, products: Dict[Product, int]) -> int:
+        discount = 0
+        product = self.offer['product']
         total = 0
         applied = 0
-        product = self.offer['product']
         for product in sort_pricier_first(product):
             if product in products:
-                for i in range(min(products[product], self.offer['count'] - applied)):
+                while products[product] > 0:
                     total += product.price
                     applied += 1
                     products[product] -= 1
-            if applied == self.offer['count']:
-                break
-        return total - self.offer['price']
-
-
-
-
-
+        if applied >= self.offer['count']:
+            print(applied, self.offer['count'], applied // self.offer['count'])
+            discount += total - self.offer['price'] * applied // self.offer['count']
+        return discount 
 
