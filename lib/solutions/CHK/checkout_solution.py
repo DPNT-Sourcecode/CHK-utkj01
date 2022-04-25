@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Generator
 from .product import Product
 
 
@@ -93,6 +93,22 @@ def get_offers() -> list:
     return offers
 
 
+class Basket:
+    def __init__(self, skus: str) -> None:
+        self.skus: str = skus
+        self.products: Dict[Product, int] = {}
+    
+    def add_item(self, product: Product) -> None:
+        ...
+
+    def _parse_skus(self, skus: str) -> Generator[Product, None None]:
+        for sku in list(skus):
+            try:
+                yield Product[sku]
+            except:
+                ...
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -115,6 +131,7 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
 
 
