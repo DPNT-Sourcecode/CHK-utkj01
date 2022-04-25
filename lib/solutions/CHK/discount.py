@@ -55,19 +55,18 @@ class GroupPrice(Discount):
         applied = 0
         for product in sort_pricier_first(product):
             if product in products:
-                while products[product] > 0:
+                for i in range(min(products[product], self.offer['count'] - applied)):
+                # while products[product] > 0:
                     total += product.price
                     applied += 1
                     products[product] -= 1
             # if applied == self.offer['count']:
             #     break
         if applied >= self.offer['count']:
-            if applied % self.offer['price'] == 0:
-                print(f"{total} - {self.offer['price']} * {applied} / {self.offer['count']}", products)
-                discount += total - self.offer['price'] * applied / self.offer['count']
-            else:
-                discount += total - self.offer['price']
+            print(f"{total} - {self.offer['price']} * {applied} / {self.offer['count']}", products)
+            discount += total - self.offer['price'] * applied / self.offer['count']
         return discount 
+
 
 
 
