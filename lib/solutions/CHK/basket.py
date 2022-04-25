@@ -36,4 +36,3 @@ class Basket:
                 yield Product[sku]
             except:
                 raise ProductNotFoundError(sku)
-
