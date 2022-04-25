@@ -75,13 +75,14 @@ def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> i
     for offer in offers:
         product_list = offer['product']
         if isinstance(product_list, list):
-            for product in product_list:  # TODO: perhaps need to sort this to get priciest first to favor customer
+            for product in sort_pricier_first(product_list):
                 if product in basket:
-                    total += product.price
-                    applied += 1
-                if applied == offer['count']:
-                    break
-            discount += total - offer['price'] 
+                    while basket[product] > 0:
+                        total += product.price
+                        applied += 1
+                        basket[product] -= 1
+            if applied >= offer['count']:
+                discount += total - offer['price'] * applied / offer['count']
     return discount, basket
 
 
@@ -147,4 +148,5 @@ def checkout(skus: str) -> int:
     discount = calculate_discount(basket, offers)
     total_price = total_price - discount
     return total_price 
+
 
