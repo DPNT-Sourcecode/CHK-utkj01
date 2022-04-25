@@ -1,6 +1,7 @@
-from typing import List, Dict, Generato
+from typing import List, Dict, Generator
 
 from .product import Product
+from .discount import Discount
 from .errors import ProductNotFoundError
 
 
@@ -24,11 +25,11 @@ class Basket:
         return self.total_price - self._calculate_discount(offers)
 
     def _calculate_discount(self, offers: List[dict]) -> int:
+        total_discount = 0
         products = self.products.copy()
-        groupbuy_discount, products = calculate_groupbuy_discount(products, offers) 
-        getfree_discount, products = calculate_getfree_discount(products, offers) 
-        multiprice_discount, products = calculate_multiprice_discount(products, offers) 
-        return groupbuy_discount + getfree_discount + multiprice_discount 
+        for offer in offers:
+            total_discount += Discount(offer).apply(products)
+        return total_discount    
 
     def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
         for sku in list(skus):
@@ -36,3 +37,4 @@ class Basket:
                 yield Product[sku]
             except:
                 raise ProductNotFoundError(sku)
+
