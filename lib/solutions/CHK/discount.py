@@ -58,20 +58,9 @@ class GroupPrice(Discount):
                 while products[product] > 0 and applied < self.offer['count']:
                     products[product] -= 1
                     applied += 1
-                for i in range(min(products[product], self.offer['count'] - applied)):
-                    print(product, applied)
                     total += product.price
             if applied == self.offer['count']:
                 break
         discount = total - self.offer['price']
         return discount 
-
-
-
-
-
-
-
-
-
 
