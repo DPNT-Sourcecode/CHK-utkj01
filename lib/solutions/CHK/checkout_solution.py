@@ -1,7 +1,9 @@
-from typing import Dict, List, Generator
+from typing import Dict, List
 
 from .product import Product
+from .basket import Basket
 from .errors import ProductNotFoundError
+from .utils import sort_pricier_first
 
 
 def calculate_getfree_discount(basket: Dict[str, int], offers: List[dict]) -> int:
@@ -32,9 +34,6 @@ def calculate_multiprice_discount(basket: Dict[str, int], offers: List[dict]) ->
                     basket[product] -= offer["count"]
     return discount, basket
 
-
-def sort_pricier_first(products: List[Product]) -> List[Product]:
-    return sorted(products, key=lambda product: product.price, reverse=True)
 
 
 def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> int: 
@@ -97,6 +96,7 @@ def checkout(skus: str) -> int:
         return -1
     offers = get_offers()
     return basket.checkout(offers)
+
 
 
 

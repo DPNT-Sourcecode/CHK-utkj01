@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Generato
 
 from .product import Product
 from .errors import ProductNotFoundError
@@ -36,3 +36,4 @@ class Basket:
                 yield Product[sku]
             except:
                 raise ProductNotFoundError(sku)
+
