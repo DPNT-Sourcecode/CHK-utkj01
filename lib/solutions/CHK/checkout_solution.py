@@ -1,4 +1,5 @@
 from typing import Dict, List, Generator
+
 from .product import Product
 from .errors import ProductNotFoundError
 
@@ -54,13 +55,6 @@ def calculate_groupbuy_discount(basket: Dict[str, int], offers: List[dict]) -> i
     return discount, basket
 
 
-def calculate_discount(basket: Dict[str, int], offers: List[dict]) -> int:
-    groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
-    getfree_discount, basket = calculate_getfree_discount(basket, offers) 
-    multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
-    return groupbuy_discount + getfree_discount + multiprice_discount 
-
-
 def get_offers() -> list:
     offers = [
         {"product": Product.A, "count": 3, "price": 130},
@@ -93,37 +87,6 @@ def get_offers() -> list:
     return offers
 
 
-class Basket:
-    def __init__(self, skus: str) -> None:
-        self.skus: str = skus
-        self.products: Dict[Product, int] = {}
-        self.total_price: int = 0
-        for product in self._parse_skus(self.skus):
-            self.add_item(product)
-    
-    def add_item(self, product: Product) -> None:
-        if product in self.products:
-            self.products[product] += 1
-        else:
-            self.products[product] = 1
-        self.total_price += product.price 
-
-    def checkout(self, offers: List[dict]) -> int:
-        return self.total_price - self._calculate_discount(offers)
-
-    def _calculate_discount(self, offers: List[dict]) -> int:
-        groupbuy_discount, basket = calculate_groupbuy_discount(basket, offers) 
-        getfree_discount, basket = calculate_getfree_discount(basket, offers) 
-        multiprice_discount, basket = calculate_multiprice_discount(basket, offers) 
-        return groupbuy_discount + getfree_discount + multiprice_discount 
-
-    def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
-        for sku in list(skus):
-            try:
-                yield Product[sku]
-            except:
-                raise ProductNotFoundError(sku)
-
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -134,6 +97,7 @@ def checkout(skus: str) -> int:
         return -1
     offers = get_offers()
     return basket.checkout(offers)
+
 
 
 
