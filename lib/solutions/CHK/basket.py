@@ -28,7 +28,7 @@ class Basket:
         total_discount = 0
         products = self.products.copy()
         for offer in offers:
-            total_discount += Discount(offer).apply(products)
+            total_discount += offer["type"](offer).apply(products)
         return total_discount    
 
     def _parse_skus(self, skus: str) -> Generator[Product, None, None]:
@@ -37,4 +37,5 @@ class Basket:
                 yield Product[sku]
             except:
                 raise ProductNotFoundError(sku)
+
 
