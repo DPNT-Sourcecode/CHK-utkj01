@@ -3,26 +3,28 @@ from typing import Dict, List
 from .product import Product
 from .basket import Basket
 from .errors import ProductNotFoundError
+from .discount import GetFree, MultiPrice, GroupPrice
 
 
 def get_offers() -> list:
     offers = [
-        {"product": Product.A, "count": 3, "price": 130},
-        {"product": Product.A, "count": 5, "price": 200},
-        {"product": Product.B, "count": 2, "price": 45},
-        {"product": Product.E, "count": 2, "get_free": Product.B},
-        {"product": Product.F, "count": 3, "get_free": Product.F},
-        {"product": Product.H, "count": 5, "price": 45},
-        {"product": Product.H, "count": 10, "price": 80},
-        {"product": Product.K, "count": 2, "price": 120},
-        {"product": Product.N, "count": 3, "get_free": Product.M},
-        {"product": Product.P, "count": 5, "price": 200},
-        {"product": Product.Q, "count": 3, "price": 80},
+        {"product": Product.A, "type": MultiPrice, "count": 3, "price": 130},
+        {"product": Product.A, "type": MultiPrice, "count": 5, "price": 200},
+        {"product": Product.B, "type": MultiPrice, "count": 2, "price": 45},
+        {"product": Product.E, "type": GetFree, "count": 2, "get_free": Product.B},
+        {"product": Product.F, "type": GetFree, "count": 3, "get_free": Product.F},
+        {"product": Product.H, "type": MultiPrice, "count": 5, "price": 45},
+        {"product": Product.H, "type": MultiPrice, "count": 10, "price": 80},
+        {"product": Product.K, "type": MultiPrice, "count": 2, "price": 120},
+        {"product": Product.N, "type": GetFree, "count": 3, "get_free": Product.M},
+        {"product": Product.P, "type": MultiPrice, "count": 5, "price": 200},
+        {"product": Product.Q, "type": MultiPrice, "count": 3, "price": 80},
         {"product": Product.R, "type": GetFree, "count": 3, "get_free": Product.Q},
-        {"product": Product.U, "count": 4, "get_free": Product.U},
-        {"product": Product.V, "count": 2, "price": 90},
-        {"product": Product.V, "count": 3, "price": 130},
-        {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], "count": 3, "price": 45},
+        {"product": Product.U, "type": GetFree, "count": 4, "get_free": Product.U},
+        {"product": Product.V, "type": MultiPrice, "count": 2, "price": 90},
+        {"product": Product.V, "type": MultiPrice, "count": 3, "price": 130},
+        {"product": [Product.S, Product.T, Product.X, Product.Y, Product.Z], 
+         "type": GroupPrice, "count": 3, "price": 45},
     ]
     for offer in offers:
         if 'get_free' in offer:
@@ -47,4 +49,5 @@ def checkout(skus: str) -> int:
         return -1
     offers = get_offers()
     return basket.checkout(offers)
+
 
